@@ -1,5 +1,5 @@
 
-###Instructions:
+### Instructions:
 
 Server is configured to run on port 8080. API can be tested straight from Swagger-ui at 
 **http://localhost:8080/v1/user-registration-api/swagger-ui.html**
@@ -14,7 +14,7 @@ API docs (Spring REST Docs): **\target\generated-docs\api.html**
 
 ---------------------
 
-###What I've included/used in this project (not counting Maven, Spring - the usual):
+### What I've included/used in this project (not counting Maven, Spring - the usual):
 
 *   Swagger (API-first approach, courtesy of [SpringFox](https://springfox.github.io/springfox/docs/current/))
 
@@ -46,7 +46,7 @@ done (first time using it), but I think it is a nice addition.
 For generating test coverage metrics/reports.
 
 -------------------
-###Observations:
+### Observations:
 
 1 - since this is a REST ([level 2](https://restfulapi.net/richardson-maturity-model/#level-two), no hypermedia), I took
 the freedom to make what is described in the coding-test as a "register" named method a POST against a ***user resource***.

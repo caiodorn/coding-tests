@@ -1,0 +1,69 @@
+= User-registration-service Getting Started Guide
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[introduction]
+= Introduction
+
+User-registration-service is a REST microservice for ...
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+Person-service tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+|===
+| Verb | Usage
+| `POST`
+| Used to register a new user (creates new user resource)
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+User-registration-service tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Description
+
+| `200 OK`
+| The user has been successfully created.
+
+| `400 Bad Request`
+| The server cannot or will not process the request due to something that is perceived to be a client error (e.g., validation errors, malformed request syntax, invalid request message framing, or deceptive request routing).
+
+| `409 Conflict`
+| The client is attempting to create a resource that already exists.
+
+|===
+
+[[resources]]
+= Resources
+
+
+[[resources-user]]
+== User
+The User resource is used to create users.
+
+[[resource-user-create]]
+=== Creating user
+A `POST` request creates a new person.
+
+==== Request structure
+
+include::{snippets}/register/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/register/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/register/http-response.adoc[]
+

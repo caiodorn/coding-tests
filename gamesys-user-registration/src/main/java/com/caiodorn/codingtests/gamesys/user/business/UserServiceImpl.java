@@ -1,0 +1,49 @@
+package com.caiodorn.codingtests.gamesys.user.business;
+
+import com.caiodorn.codingtests.gamesys.user.persistence.UserRepository;
+import com.caiodorn.codingtests.gamesys.user.rest.User;
+import com.caiodorn.codingtests.gamesys.user.util.UserObjectMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService {
+
+    private final ExclusionService exclusionService;
+    private final UserObjectMapper objectMapper;
+    private final UserRepository userRepository;
+
+    public UserServiceImpl(final ExclusionService exclusionService,
+                           final UserObjectMapper objectMapper,
+                           final UserRepository userRepository) {
+        this.exclusionService = exclusionService;
+        this.objectMapper = objectMapper;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public void register(User incomingUser) {
+        validateNewUser(incomingUser);
+        userRepository.save(objectMapper.mapFromResourceToEntity(incomingUser));
+    }
+
+    @Override
+    public void validateNewUser(User incomingUser) {
+        validateConflict(incomingUser.getUserName());
+        validateBanned(incomingUser.getDob(), incomingUser.getSsn());
+    }
+
+    private void validateConflict(String incomingUserName) {
+        if (userRepository.findByUserName(incomingUserName).isPresent()) {
+            throw new UserNameAlreadyInUseException(incomingUserName);
+        }
+    }
+
+    private void validateBanned(String dob, String ssn) {
+        if (!exclusionService.validate(dob, ssn)) {
+            throw new BlackListedUserException(dob, ssn);
+        }
+    }
+
+}

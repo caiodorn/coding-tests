@@ -17,7 +17,7 @@ public class WebApplicationInitializerImpl implements WebApplicationInitializer 
         servletContainer.addListener(new ContextLoaderListener(context));
         ServletRegistration.Dynamic dispatcher = servletContainer.addServlet("dispatcher", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/*");
+        dispatcher.addMapping("/");
     }
 
 }

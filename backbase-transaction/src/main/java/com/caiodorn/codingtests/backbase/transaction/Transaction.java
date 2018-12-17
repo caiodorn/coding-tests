@@ -1,5 +1,14 @@
 package com.caiodorn.codingtests.backbase.transaction;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Transaction {
 
     String id;
@@ -7,9 +16,9 @@ public class Transaction {
     String counterpartyAccount;
     String counterpartyName;
     String counterPartyLogoPath;
-    Double instructedAmount; //TODO researh on decimals
-    Double instructedCurrenty; //TODO researh on decimals
-    Double transactionAmount; //TODO
+    BigDecimal instructedAmount;
+    String instructedCurrency;
+    BigDecimal transactionAmount;
     String transactionCurrency;
     String transactionType;
     String description;

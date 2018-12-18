@@ -1,6 +1,6 @@
 package com.caiodorn.codingtests.backbase.api.application;
 
-import com.caiodorn.codingtests.backbase.api.configuration.WebConfig;
+import com.caiodorn.codingtests.backbase.api.configuration.WebConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -12,7 +12,7 @@ public class WebApplicationInitializer extends AbstractAnnotationConfigDispatche
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] {WebConfig.class};
+        return new Class[] {WebConfiguration.class};
     }
 
     @Override

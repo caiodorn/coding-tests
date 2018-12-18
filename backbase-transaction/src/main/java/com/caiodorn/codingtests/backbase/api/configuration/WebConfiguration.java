@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.caiodorn.codingtests.backbase")
-public class WebConfig extends WebSecurityConfigurerAdapter {
+public class WebConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public ObjectMapper objectMapper() {
@@ -54,8 +54,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.inMemoryAuthentication()
                 .withUser("john doe")
                 .password("{noop}1234")
                 .roles("USER");

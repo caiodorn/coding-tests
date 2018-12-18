@@ -1,6 +1,5 @@
 package com.caiodorn.codingtests.backbase.api.authentication;
 
-import com.caiodorn.codingtests.backbase.api.account.AccountCredentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +25,7 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException {
 
-        AccountCredentials credentials = new ObjectMapper()
-                .readValue(request.getInputStream(), AccountCredentials.class);
+        AuthenticationRequest credentials = new ObjectMapper().readValue(request.getInputStream(), AuthenticationRequest.class);
 
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(

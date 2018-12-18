@@ -1,5 +1,7 @@
-package com.caiodorn.codingtests.backbase.transaction;
+package com.caiodorn.codingtests.backbase.api.account;
 
+import com.caiodorn.codingtests.backbase.api.transaction.Transaction;
+import com.caiodorn.codingtests.backbase.api.transaction.TransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

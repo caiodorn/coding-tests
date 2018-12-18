@@ -1,5 +1,6 @@
-package com.caiodorn.codingtests.backbase.transaction;
+package com.caiodorn.codingtests.backbase.api.transaction;
 
+import com.caiodorn.codingtests.backbase.api.openbank.OpenBankClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;

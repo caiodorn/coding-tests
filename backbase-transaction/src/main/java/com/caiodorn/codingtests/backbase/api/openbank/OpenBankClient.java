@@ -1,4 +1,4 @@
-package com.caiodorn.codingtests.backbase.transaction;
+package com.caiodorn.codingtests.backbase.api.openbank;
 
 import org.springframework.stereotype.Component;
 

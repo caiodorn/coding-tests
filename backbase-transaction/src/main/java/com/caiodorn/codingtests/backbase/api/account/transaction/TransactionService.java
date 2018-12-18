@@ -43,7 +43,7 @@ public class TransactionService {
     }
 
     public BigDecimal getTotalAmountByTransactionType(String id, String type) {
-        List<BigDecimal> transactionAmounts = new ArrayList<>();;
+        List<BigDecimal> transactionAmounts = new ArrayList<>();
         getTransactionsByType(id, type).forEach(transaction ->
              transactionAmounts.add(transaction.getTransactionAmount())
         );

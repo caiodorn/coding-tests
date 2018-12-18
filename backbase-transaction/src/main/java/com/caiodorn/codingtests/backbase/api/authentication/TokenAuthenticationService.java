@@ -2,6 +2,7 @@ package com.caiodorn.codingtests.backbase.api.authentication;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.Date;
 
+@Slf4j
 public class TokenAuthenticationService {
 
     private static final long EXPIRATION_TIME = 3600000;
@@ -31,16 +33,20 @@ public class TokenAuthenticationService {
         String token = request.getHeader(HEADER_STRING);
         Authentication authentication = null;
 
-        if (token != null) {
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
+        try {
+            if (token != null) {
+                String user = Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                        .getBody()
+                        .getSubject();
 
-            if (user != null) {
-                authentication = new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                if (user != null) {
+                    authentication = new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                }
             }
+        } catch (Exception e) {
+            log.error("An error happened while attempting to parse JWT token... \nToken: {}", token, e);
         }
 
         return authentication;

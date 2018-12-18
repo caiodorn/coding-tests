@@ -67,11 +67,15 @@ public class TransactionMapper {
         final String text = getText(node);
         BigDecimal amount = null;
 
-        if (StringUtils.hasText(text) && !("+".equals(text) || "-".equals(text))) {
+        if (isValidAmount(text)) {
             amount = new BigDecimal(text).setScale(2, RoundingMode.UNNECESSARY);
         }
 
         return amount;
+    }
+
+    private boolean isValidAmount(String text) {
+        return StringUtils.hasText(text) && !("+".equals(text) || "-".equals(text));
     }
 
     private String getText(JsonNode node) {

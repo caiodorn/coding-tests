@@ -12,34 +12,24 @@ import java.util.Collections;
 import java.util.Date;
 
 @Slf4j
-public class TokenAuthenticationService {
+public class TokenAuthenticator {
 
     private static final long EXPIRATION_TIME = 3600000;
     private static final String SECRET = "MySecret";
-    private static final String TOKEN_PREFIX = "Bearer";
+    private static final String TOKEN_PREFIX = "Bearer ";
     private static final String HEADER_STRING = "Authorization";
 
-    static void addAuthentication(HttpServletResponse response, String username) {
-        String JWT = Jwts.builder()
-                .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
-                .compact();
-
-        response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+    protected static void addAuthentication(HttpServletResponse response, String username) {
+        response.addHeader(HEADER_STRING, TOKEN_PREFIX + generateJwtToken(username));
     }
 
-    static Authentication getAuthentication(HttpServletRequest request) {
+    protected static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         Authentication authentication = null;
 
         try {
             if (token != null) {
-                String user = Jwts.parser()
-                        .setSigningKey(SECRET)
-                        .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                        .getBody()
-                        .getSubject();
+                String user = authenticateToken(token);
 
                 if (user != null) {
                     authentication = new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
@@ -50,6 +40,22 @@ public class TokenAuthenticationService {
         }
 
         return authentication;
+    }
+
+    private static String authenticateToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(SECRET)
+                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                .getBody()
+                .getSubject();
+    }
+
+    private static String generateJwtToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .compact();
     }
 
 }

@@ -45,7 +45,7 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
             FilterChain filterChain,
             Authentication auth) {
 
-        TokenAuthenticationService.addAuthentication(response, auth.getName());
+        TokenAuthenticator.addAuthentication(response, auth.getName());
     }
 
 }

@@ -38,6 +38,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         return messageConverter;
     }
 
+    @Bean
+    LoginFilter loginFilter() {
+        return new LoginFilter();
+    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
@@ -45,7 +50,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new AuthenticationFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new LoginFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

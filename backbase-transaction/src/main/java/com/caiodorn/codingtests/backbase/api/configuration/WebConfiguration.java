@@ -23,6 +23,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan(basePackages = "com.caiodorn.codingtests.backbase")
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final String[] SWAGGER_PATHS = {
+            "/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security",
+            "/swagger-ui.html", "/webjars/**", "/swagger-resources/configuration/ui",
+            "/swagger-resources/configuration/security"
+    };
+
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -42,7 +48,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 // uncomment the line below to get security out of the way if needed. E.g.: where did decimal digits go?! Check via browser (address bar) to find out ;)
                 //.antMatchers(HttpMethod.GET, "/current-accounts/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**", "/swagger-resources/configuration/ui", "/swagger-resources/configuration/security").permitAll()
+                .antMatchers(SWAGGER_PATHS).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class)

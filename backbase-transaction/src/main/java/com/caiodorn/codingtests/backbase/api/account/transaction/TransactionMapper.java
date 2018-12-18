@@ -1,4 +1,4 @@
-package com.caiodorn.codingtests.backbase.api.transaction;
+package com.caiodorn.codingtests.backbase.api.account.transaction;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Component;

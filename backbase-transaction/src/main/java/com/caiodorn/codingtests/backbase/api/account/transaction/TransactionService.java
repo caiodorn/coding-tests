@@ -1,4 +1,4 @@
-package com.caiodorn.codingtests.backbase.api.transaction;
+package com.caiodorn.codingtests.backbase.api.account.transaction;
 
 import com.caiodorn.codingtests.backbase.api.openbank.OpenBankClient;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +40,17 @@ public class TransactionService {
                 .stream()
                 .filter(transaction -> type.equals(transaction.getTransactionType()))
                 .collect(Collectors.toList());
+    }
+
+    public BigDecimal getTotalAmountByTransactionType(String id, String type) {
+        List<BigDecimal> transactionAmounts = new ArrayList<>();;
+        getTransactionsByType(id, type).forEach(transaction ->
+             transactionAmounts.add(transaction.getTransactionAmount())
+        );
+
+        return transactionAmounts
+                .stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private void mapToTransactions(List<Transaction> transactions, JsonNode transactionsNode) {

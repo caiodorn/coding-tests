@@ -1,13 +1,14 @@
-package com.caiodorn.codingtests.backbase.api.conf;
+package com.caiodorn.codingtests.backbase.api.configuration;
 
 import com.caiodorn.codingtests.backbase.api.authentication.AuthenticationFilter;
 import com.caiodorn.codingtests.backbase.api.authentication.LoginFilter;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,13 +19,23 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @EnableWebSecurity
-@Order(99)
 @ComponentScan(basePackages = "com.caiodorn.codingtests.backbase")
 public class WebConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public ObjectMapper objectMapper() {
-        return new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+
+        return objectMapper;
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+        messageConverter.setObjectMapper(objectMapper());
+
+        return messageConverter;
     }
 
     @Override
@@ -39,7 +50,6 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // cria uma conta default
         auth.inMemoryAuthentication()
                 .withUser("john doe")
                 .password("{noop}1234")

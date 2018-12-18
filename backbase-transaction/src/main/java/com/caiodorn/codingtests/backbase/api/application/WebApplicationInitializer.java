@@ -1,6 +1,6 @@
-package com.caiodorn.codingtests.backbase.api.app;
+package com.caiodorn.codingtests.backbase.api.application;
 
-import com.caiodorn.codingtests.backbase.api.conf.WebConfig;
+import com.caiodorn.codingtests.backbase.api.configuration.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

@@ -220,9 +220,9 @@
                     <excludes>
                         <exclude>**/Transaction.*</exclude>
                         <exclude>**/Credentials.*</exclude>
-                        <exclude>**/SecurityWebApplicationInitializer.*</exclude>
-                        <exclude>**/WebApplicationInitializer.*</exclude>
-                        <exclude>**/WebConfig.*</exclude>
+                        <exclude>**/*Initializer.*</exclude>
+                        <exclude>**/*Filter.*</exclude>
+                        <exclude>**/*Configuration.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

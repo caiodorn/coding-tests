@@ -1,28 +1,28 @@
-####Build project: 
+#### Build project: 
 
 `mvnw clean install`
 
 ---
 
-####Run app: 
+#### Run app: 
 
 `mvnw tomcat7:run-war`
 
-#####Web App base path: 
+##### Web App base path: 
 http://localhost:9090
 
 ---
 
-####Login process:
+#### Login process:
 
 Send a POST request to **/login** as follows:
 
-#####Request:
+##### Request:
 `curl -d '{"username" : "john doe", "password" : "1234"}' -H "Content-Type: application/json" -X POST http://localhost:9090/login -i`
                 
 A token will be returned upon authentication. It corresponds to the value assigned to "Authorization". **COPY IT**.
 
-#####Response:
+##### Response:
 
 ```
 Server: Apache-Coyote/1.1
@@ -39,7 +39,7 @@ Date: Tue, 18 Dec 2018 23:44:38 GMT
 
 ---
 
-####Consuming the API:
+#### Consuming the API:
 
 Whenever sending requests to the endpoints below, send the previously saved token along in the header
 under the "Authorization" field. Luckily enough, now can be leveraged for this. Just click [here](http://localhost:9090/swagger-ui.html) :)
@@ -47,7 +47,7 @@ under the "Authorization" field. Luckily enough, now can be leveraged for this. 
 From there you can perform all possible operations (except for the login, as you noticed). Have fun!
 
 ---
-####Notes:
+#### Notes:
 
 My computer runs Windows 10 and Intellij Ultimate, latest version. For some reason, curl login request returned 404 when the server was booted 
 up from Git Bash using maven wrapper. That's the only case I had issues... so if you do the same and the server returns 404, I recommend running

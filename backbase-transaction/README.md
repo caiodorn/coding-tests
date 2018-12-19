@@ -1,39 +1,47 @@
-This project has maven wrapper plugin, so if you don't have maven in your computer, it can still be built.
+####Build project: 
 
-Build: 
+`mvnw clean install`
 
-mvnw clean install
+---
 
-Run: 
+####Run app: 
 
-mvnw tomcat7:run-war
+`mvnw tomcat7:run-war`
 
-Application will be served from http://localhost:9090
+#####Web App base path: 
+http://localhost:9090
 
-This application has authentication enabled. In order to use /transactions endpoints, send a POST request to the /login 
-endpoint as follows:
+---
 
-POST /login
+####Login process:
 
-Request body -> {
-                	"username" : "john doe",
-                	"password" : "1234"
-                }
+Send a POST request to **/login** as follows:
+
+#####Request:
+`curl -d '{"username" : "john doe", "password" : "1234"}' -H "Content-Type: application/json" -X POST http://localhost:9090/login -i`
                 
-A token will be returned upon authentication. Whenever sending requests to the endpoints below, send it along in the header
-under the "Authorization" field.
+A token will be returned upon authentication. It corresponds to the value assigned to "Authorization". **COPY IT**.
 
-Protected endpoints:
+#####Response:
 
-Transactions list
+```
+Server: Apache-Coyote/1.1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqb2huIGRvZSIsImV4cCI6MTU0NTE4MDI3OH0.ERepXs061Uwkc3r76O9fwDJtBvfbwAr5anjU0PZX-cLBuQ4B8tQ7FZbD-VvGT5pyALVSW9kUBDL0Bm0MDLdtAQ
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 0
+Date: Tue, 18 Dec 2018 23:44:38 GMT
+```
 
-/current-accounts/savings-kids-john/transactions
+---
 
-Transaction filter based on transaction type
+####Consuming the API:
 
-/current-accounts/savings-kids-john/transactions?transactionType=sandbox-payment
+Whenever sending requests to the endpoints below, send the previously saved token along in the header
+under the "Authorization" field. Luckily enough, now can be leveraged for this. Just click [here](http://localhost:9090/accounts) :)
 
-Total amount for transaction type
-
-/current-accounts/savings-kids-john/transactions?transactionType=sandbox-payment&getTotalAmount
-
+From there you can perform all possible operations (except for the login, as you noticed). Have fun!

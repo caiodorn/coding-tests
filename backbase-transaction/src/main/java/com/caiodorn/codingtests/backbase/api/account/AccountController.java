@@ -19,18 +19,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.springframework.util.StringUtils.hasText;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/current-accounts")
+@RequestMapping("/accounts")
 public class AccountController {
 
     private final TransactionService transactionService;
 
-    @GetMapping("/{id}/transactions")
+    @GetMapping(path = "/{id}/transactions", produces = APPLICATION_JSON)
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Retrieves transactions pertaining to the provided account id")
+    @ApiOperation(value = "Retrieves transactions pertaining to the provided account id", produces = APPLICATION_JSON)
     public List<Transaction> getTransactions(@RequestHeader(value="Authorization") String token, //token is here for Swagger UI
                                           @ApiParam(example = "savings-kids-john", required = true) @PathVariable String id,
                                           @ApiParam(example = "SANDBOX_TAN") @RequestParam(required = false) String transactionType) {
@@ -45,9 +46,9 @@ public class AccountController {
         return transactions;
     }
 
-    @GetMapping("/{id}/transactions/total")
+    @GetMapping(path = "/{id}/transactions/total", produces = APPLICATION_JSON)
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Retrieves the total amount for transaction type")
+    @ApiOperation(value = "Retrieves the total amount for transaction type", produces = APPLICATION_JSON)
     public Map<String, BigDecimal> getTotalAmountByType(@RequestHeader(value="Authorization") String token, //token is here for Swagger UI
                                                         @ApiParam(example = "savings-kids-john", required = true) @PathVariable String id,
                                                         @ApiParam(example = "SANDBOX_TAN", required = true) @RequestParam String transactionType) {

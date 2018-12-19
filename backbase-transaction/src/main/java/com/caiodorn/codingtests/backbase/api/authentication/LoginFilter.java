@@ -16,10 +16,7 @@ public class LoginFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
-
-        Authentication authentication = TokenAuthenticator
-                .getAuthentication((HttpServletRequest) request);
-
+        Authentication authentication = TokenAuthenticator.getAuthentication((HttpServletRequest) request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }

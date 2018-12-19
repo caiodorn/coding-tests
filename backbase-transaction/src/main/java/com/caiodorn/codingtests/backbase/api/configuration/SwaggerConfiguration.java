@@ -42,4 +42,5 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Backbase Account Transactions API").build();
     }
+
 }

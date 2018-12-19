@@ -46,7 +46,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                 // uncomment the line below to get security out of the way if needed. E.g.: where did decimal digits go?! Check via browser (address bar) to find out ;)
-                //.antMatchers(HttpMethod.GET, "/current-accounts/**").permitAll()
+                //.antMatchers(HttpMethod.GET, "/accounts/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(SWAGGER_PATHS).permitAll()
                 .anyRequest().authenticated()

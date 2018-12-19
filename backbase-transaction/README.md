@@ -42,7 +42,7 @@ Date: Tue, 18 Dec 2018 23:44:38 GMT
 #### Consuming the API:
 
 Whenever sending requests to the endpoints below, send the previously saved token along in the header
-under the "Authorization" field. Luckily enough, now can be leveraged for this. Just click [here](http://localhost:9090/swagger-ui.html) :)
+under the "Authorization" field. Luckily enough, Swagger-ui can now be leveraged for this. Just click [here](http://localhost:9090/swagger-ui.html) :)
 
 From there you can perform all possible operations (except for the login, as you noticed). Have fun!
 

@@ -167,6 +167,16 @@ public class AccountControllerIT {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void givenAuthenticatedUserPassingBadToken_whenGETTransactions_thenReturnHttpForbidden() throws Exception {
+        String bogusToken = getToken(doLogin(VALID_USERNAME, VALID_PASSWORD)).replace("o", "s");
+
+        mockMvc.perform(get(String.format("/accounts/%s/transactions", VALID_ACCOUNT))
+                .header(AUTHORIZATION, bogusToken)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+
     private ResultActions doLogin(String username, String password) throws Exception {
         return mockMvc.perform(post("/login").content(String.format("{\"username\":\"%s\", \"password\":\"%s\"}", username, password))
                 .contentType(MediaType.APPLICATION_JSON));

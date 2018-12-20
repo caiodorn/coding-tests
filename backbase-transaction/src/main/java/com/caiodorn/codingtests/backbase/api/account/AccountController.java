@@ -33,8 +33,8 @@ public class AccountController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Retrieves transactions pertaining to the provided account id", produces = APPLICATION_JSON)
     public List<Transaction> getTransactions(@RequestHeader(value="Authorization") String token, //token is here for Swagger UI
-                                          @ApiParam(example = "savings-kids-john", required = true) @PathVariable String id,
-                                          @ApiParam(example = "SANDBOX_TAN") @RequestParam(required = false) String transactionType) {
+                                             @ApiParam(example = "savings-kids-john", required = true) @PathVariable String id,
+                                             @ApiParam(example = "SANDBOX_TAN") @RequestParam(required = false) String transactionType) {
         List<Transaction> transactions;
 
         if (hasText(transactionType)) {

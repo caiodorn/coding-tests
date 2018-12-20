@@ -16,9 +16,9 @@ import static org.mockito.Mockito.*;
 
 public class AccountControllerTest {
 
-    TransactionService transactionServiceMock;
-    AccountController accountController;
-    List<Transaction> expectedTransactions;
+    private TransactionService transactionServiceMock;
+    private AccountController accountController;
+    private List<Transaction> expectedTransactions;
 
     @BeforeEach
     public void setup() {

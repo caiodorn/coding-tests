@@ -30,6 +30,7 @@
         <springfox.version>2.9.2</springfox.version>
         <junit-jupiter.version>5.3.0-RC1</junit-jupiter.version>
         <hamcrest.version>2.1-rc3</hamcrest.version>
+        <mockito-junit-jupiter.version>2.23.4</mockito-junit-jupiter.version>
     </properties>
 
     <dependencies>
@@ -107,6 +108,27 @@
         <version>${jjwt.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-jupiter.version}</version>
@@ -123,22 +145,6 @@
             <artifactId>spring-security-test</artifactId>
             <version>${spring-security-test.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>${hamcrest.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
         </dependency>
 
     </dependencies>

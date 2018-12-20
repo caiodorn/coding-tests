@@ -20,7 +20,7 @@ public class TransactionService {
 
     private final OpenBankClient client;
     private final ObjectMapper objectMapper;
-    private final TransactionMapper valueExtractor;
+    private final TransactionMapper transactionMapper;
 
     public List<Transaction> getTransactions(String accountId) {
         String json = client.getTransactions(accountId);
@@ -56,7 +56,7 @@ public class TransactionService {
     private void mapToTransactions(List<Transaction> transactions, JsonNode transactionsNode) {
         if (transactionsNode != null) {
             transactionsNode.forEach(transactionNode ->
-                    transactions.add(valueExtractor.fromTransactionNode(transactionNode))
+                    transactions.add(transactionMapper.fromTransactionNode(transactionNode))
             );
         }
     }

@@ -169,10 +169,10 @@ public class AccountControllerIT {
 
     @Test
     public void givenAuthenticatedUserPassingBadToken_whenGETTransactions_thenReturnHttpForbidden() throws Exception {
-        String bogusToken = getToken(doLogin(VALID_USERNAME, VALID_PASSWORD)).replace("o", "s");
+        String token = getToken(doLogin(VALID_USERNAME, VALID_PASSWORD));
 
         mockMvc.perform(get(String.format("/accounts/%s/transactions", VALID_ACCOUNT))
-                .header(AUTHORIZATION, bogusToken)
+                .header(AUTHORIZATION, token.substring(0, token.length() - 10) + "0123456789")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden());
     }

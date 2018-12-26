@@ -32,9 +32,9 @@ public class AccountControllerIT {
     private static final String EMPTY_ARRAY = "[]";
     private static final String TOTAL_ZERO = "{\"total\":0}";
 
-    MockMvc mockMvc;
-    TransactionService transactionService;
-    ObjectMapper objectMapper;
+    private MockMvc mockMvc;
+    private TransactionService transactionService;
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUpMockMvc(WebApplicationContext context) {

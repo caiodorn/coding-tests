@@ -13,16 +13,16 @@ import java.math.BigDecimal;
 @ApiModel
 public class Transaction {
 
-    String id;
-    String accountId;
-    String counterpartyAccount;
-    String counterpartyName;
-    String counterPartyLogoPath;
-    BigDecimal instructedAmount;
-    String instructedCurrency;
-    BigDecimal transactionAmount;
-    String transactionCurrency;
-    String transactionType;
-    String description;
+    private String id;
+    private String accountId;
+    private String counterpartyAccount;
+    private String counterpartyName;
+    private String counterPartyLogoPath;
+    private BigDecimal instructedAmount;
+    private String instructedCurrency;
+    private BigDecimal transactionAmount;
+    private String transactionCurrency;
+    private String transactionType;
+    private String description;
 
 }

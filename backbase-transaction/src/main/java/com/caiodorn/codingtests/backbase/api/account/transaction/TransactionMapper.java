@@ -34,15 +34,15 @@ public class TransactionMapper {
         }
     }
 
-    private void fromMetadataNode(Transaction transaction, JsonNode metadataNode) {
-        if (metadataNode != null) {
-            transaction.setCounterPartyLogoPath(getText(metadataNode.get("image_URL")));
-        }
-    }
-
     private void fromHolderNode(Transaction transaction, JsonNode holderNode) {
         if (holderNode != null) {
             transaction.setCounterpartyName(getText(holderNode.get("name")));
+        }
+    }
+
+    private void fromMetadataNode(Transaction transaction, JsonNode metadataNode) {
+        if (metadataNode != null) {
+            transaction.setCounterPartyLogoPath(getText(metadataNode.get("image_URL")));
         }
     }
 
@@ -79,7 +79,13 @@ public class TransactionMapper {
     }
 
     private String getText(JsonNode node) {
-        return node == null ? null : node.asText();
+        String value = null;
+
+        if (!(node == null || node.isNull())) {
+            value = node.asText();
+        }
+
+        return value;
     }
 
 }

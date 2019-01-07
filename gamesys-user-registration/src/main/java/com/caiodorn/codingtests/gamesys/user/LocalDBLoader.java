@@ -4,6 +4,7 @@ import com.caiodorn.codingtests.gamesys.user.persistence.BlackListedUserEntity;
 import com.caiodorn.codingtests.gamesys.user.persistence.BlackListedUserRepository;
 import com.caiodorn.codingtests.gamesys.user.persistence.UserEntity;
 import com.caiodorn.codingtests.gamesys.user.persistence.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -12,20 +13,16 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
- * This class' solely purpose is to facilitate local development by pushing some persistence into the in-memory DB. This is not
+ * This class' solely purpose is to facilitate local development by pushing some data into the in-memory DB. This is not
  * intended to be used by unit/integration tests.
  */
 @Profile("local")
 @Component
+@AllArgsConstructor
 public class LocalDBLoader implements CommandLineRunner {
 
     private UserRepository userRepository;
     private BlackListedUserRepository blackListedUserRepository;
-
-    public LocalDBLoader(final UserRepository userRepository, final BlackListedUserRepository blackListedUserRepository) {
-        this.userRepository = userRepository;
-        this.blackListedUserRepository = blackListedUserRepository;
-    }
 
     @Override
     public void run(String... args) {

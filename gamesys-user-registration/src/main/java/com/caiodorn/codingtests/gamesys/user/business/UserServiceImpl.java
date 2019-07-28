@@ -29,9 +29,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateConflict(String incomingUserName) {
-        if (userRepository.findByUserName(incomingUserName).isPresent()) {
-            throw new UserNameAlreadyInUseException(incomingUserName);
-        }
+        userRepository.findByUserName(incomingUserName).ifPresent(user -> {
+            throw new UserNameAlreadyInUseException(user.getUserName());
+        });
+
     }
 
     private void validateBanned(String dob, String ssn) {

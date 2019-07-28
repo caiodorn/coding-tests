@@ -1,7 +1,7 @@
 package com.caiodorn.codingtests.gamesys.user.rest;
 
-import com.caiodorn.codingtests.gamesys.user.business.UserNameAlreadyInUseException;
 import com.caiodorn.codingtests.gamesys.user.business.BlackListedUserException;
+import com.caiodorn.codingtests.gamesys.user.business.UserNameAlreadyInUseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

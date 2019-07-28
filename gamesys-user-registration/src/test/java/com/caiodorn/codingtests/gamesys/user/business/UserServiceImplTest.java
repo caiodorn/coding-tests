@@ -1,45 +1,39 @@
 package com.caiodorn.codingtests.gamesys.user.business;
 
-import com.caiodorn.codingtests.gamesys.user.persistence.BlackListedUserRepository;
 import com.caiodorn.codingtests.gamesys.user.persistence.UserEntity;
 import com.caiodorn.codingtests.gamesys.user.persistence.UserRepository;
 import com.caiodorn.codingtests.gamesys.user.rest.User;
 import com.caiodorn.codingtests.gamesys.user.util.UserObjectMapper;
-import com.caiodorn.codingtests.gamesys.user.util.UserObjectMapperImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {UserServiceImpl.class, UserObjectMapperImpl.class})
-@ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
 
-    @Autowired
     UserService userService;
 
-    @Autowired
+    @Mock
     UserObjectMapper userObjectMapper;
 
-    @MockBean
+    @Mock
     ExclusionService exclusionServiceMock;
 
-    @MockBean
+    @Mock
     UserRepository userRepositoryMock;
 
-    @MockBean
-    BlackListedUserRepository blackListedUserRepositoryMock;
+    @BeforeEach
+    public void setup() {
+        this.userService = new UserServiceImpl(exclusionServiceMock, userObjectMapper, userRepositoryMock);
+    }
 
     @Test
     public void givenExistingUserName_whenRegister_thenShouldThrowExpectedException() {
@@ -57,7 +51,6 @@ public class UserServiceImplTest {
     @Test
     public void givenBlackListedUser_whenRegister_thenShouldThrowExpectedException() {
         User user = new User("username", "a pw", "2000-12-31", "some ssn");
-        given(userRepositoryMock.findByDobAndSsn(LocalDate.parse(user.getDob()), user.getSsn())).willReturn(Optional.of(userObjectMapper.mapFromResourceToEntity(user)));
         given(exclusionServiceMock.validate(user.getDob(), user.getSsn())).willReturn(false);
 
         assertThrows(BlackListedUserException.class, () -> userService.register(user));

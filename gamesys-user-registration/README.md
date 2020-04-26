@@ -9,7 +9,7 @@ mvnw spring-boot:run
 Once the app is up and running, Swagger-UI can be leveraged for making testing easier. It can be accessed 
 [here](http://localhost:8080/v1/user-registration-api/swagger-ui.html).
 
-Exposed resource: **/v1/user-registration-api/users**
+Exposed endpoint: **/v1/user-registration-api/users**
 
 Supported method: **POST**
 

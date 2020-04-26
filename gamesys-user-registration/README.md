@@ -1,12 +1,46 @@
 
 ### Instructions:
 
-Server is configured to run on port 8080. API can be tested straight from Swagger-ui at 
-**http://localhost:8080/v1/user-registration-api/swagger-ui.html**
+This application is bundled with Maven Wrapper, so it does not require a local Maven installation. Maven install it, then run it from the command line: 
+```
+mvnw install
+mvnw spring-boot:run
+```
+Once the app is up and running, Swagger-UI can be leveraged for making testing easier. It can be accessed 
+[here](http://localhost:8080/v1/user-registration-api/swagger-ui.html).
 
 Exposed resource: **/v1/user-registration-api/users**
 
 Supported method: **POST**
+
+Resource format:
+```
+{
+  "userName": "JohnDoe",
+  "password": "vAl1d",
+  "dob": "1990-12-31",
+  "ssn": "111-22-3333"
+}
+```
+Resource class path: **com\caiodorn\codingtests\gamesys\user\rest\User.java**
+
+Business-level validations are applied as follows: 
+```
+public void validateNewUser(User incomingUser) {
+    validateConflict(incomingUser.getUserName()); //userName is unique, so expect to get a validation error if attempted to register the same twice
+    validateBanned(incomingUser.getDob(), incomingUser.getSsn()); //this is the validation required for this coding test, will result in a call to the ExclusionService.
+}
+``` 
+
+This app features an in-memory database linked to a "local" profile, which is activated by default. Db is initialized 
+with two users: one valid and one blacklisted. Check **com\caiodorn\codingtests\gamesys\user\LocalDBLoader.java** for
+ details on how those two users are created. H2 database console can be acessed [here](http://localhost:8080/v1/user-registration-api/h2-console).
+For logging into H2 console:
+```
+JDBC URL: jdbc:h2:mem:testdb
+User Name: sa
+Pasword: <leave this empty>
+```
 
 Jacoco reports: **\target\site\jacoco\index.html**
 
@@ -14,14 +48,12 @@ API docs (Spring REST Docs): **\target\generated-docs\api.html**
 
 ---------------------
 
-### What I've included/used in this project (not counting Maven, Spring - the usual):
+### "Extras" included/used in this project:
 
 *   Swagger (API-first approach, courtesy of [SpringFox](https://springfox.github.io/springfox/docs/current/))
 
-Although this is a very nice tool, if used as a documentation tool, app code gets easily bloated by its own, thus making 
-it not very pleasant to maintain and go through. Another downside of it is that there is no guarantees that the API stays
-up-to-date with the implementation, nor that the documentation is effectively respected (more on this soon). So it is there, 
-with minimal documentation, mainly because Swagger-ui is a neat tool for API testing/development. 
+Mainly because Swagger-ui is a neat tool for API testing/development, eliminating the need of using tools like Postman. 
+Opted for using API-first approach, which I like better.
 
 *   [Zalando's Problem API](https://github.com/zalando/problem-spring-web)
 
@@ -31,15 +63,15 @@ implements [RFC7807](https://tools.ietf.org/html/rfc7807).
 
 *   [Mapstruct](http://mapstruct.org/documentation/stable/reference/html/)
 
-A great API for mapping objects (say goodbye to writing converters).
+A great API for mapping objects, helps keeping the code clean and focusing on the actual business needs.
 
 *   [Spring REST Docs](https://docs.spring.io/spring-restdocs/docs/2.0.2.RELEASE/reference/html5/)
 
-The fact that I wasn't happy with the plethora of annotations that come along with SpringFox (Swagger) made me do some
-research... this is the result. It generates an HTML doc, which is navigable, however it lacks that amazing UI provided 
-by Swagger. ON THE OTHER HAND, the doc is bound to unit tests and works as a contract, meaning that changes to the API
-will most certainly break unit tests and FORCE developer to put it on back on track. It can get way better than what I've
-done (first time using it), but I think it is a nice addition.
+SpringFox (Swagger) is nice and useful, but if you try using it as a documentation tool, code can get quite messy. Since I
+still wanted to use it as a testing tool, I did some research and this is the result. Spring REST Docs generates an HTML doc, 
+which is navigable, however it lacks that pleasant looking UI provided by Swagger. ON THE OTHER HAND, the doc is bound to unit tests 
+and works as a contract, meaning that changes to the API will break unit tests and FORCE developer to update them. It can 
+get way better than what I've done (first time using it), but I think it is a nice addition.
 
 *   [Jacoco](https://www.jacoco.org/jacoco/trunk/doc/)
 
@@ -66,6 +98,6 @@ keeping things clean.
 
 5 - you'll notice there aren't barely any comments/javadoc. Again, I don't know what you're expecting regarding this
 matter... so I tried to keep it clean. In "real life" this is how I proceed unless the company I'm working for says
-otherwise.
+I should do otherwise.
 
 Thanks!

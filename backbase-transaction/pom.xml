@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <servlet-api.version>4.0.1</servlet-api.version>
         <spring-webmvc.version>5.1.2.RELEASE</spring-webmvc.version>
-        <spring-security-web.version>5.1.2.RELEASE</spring-security-web.version>
+        <spring-security-web.version>5.2.10.RELEASE</spring-security-web.version>
         <spring-security-config.version>5.1.2.RELEASE</spring-security-config.version>
         <spring-security-test.version>5.1.2.RELEASE</spring-security-test.version>
         <resteasy-jaxrs.version>3.6.2.Final</resteasy-jaxrs.version>

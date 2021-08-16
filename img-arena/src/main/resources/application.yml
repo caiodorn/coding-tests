@@ -1,6 +1,0 @@
-spring:
-  profiles:
-    active: @spring.profiles.active@
-server:
-  error:
-    include-stacktrace: never

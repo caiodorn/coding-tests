@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    data-username: sa
+    data-password:
+    sql-script-encoding: utf-8
+  h2:
+    console:
+      enabled: true
+debug: false
+
